@@ -11,6 +11,8 @@ COPY go.mod go.sum ./
 # Se a pasta se chamar apenas 'whatsmeow', mude aqui e no go.mod
 COPY whatsmeow-lib/ ./whatsmeow-lib/
 
+RUN ls -la /build/whatsmeow-lib/
+
 # 3. Download das dependências
 RUN go mod download
 
