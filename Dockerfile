@@ -4,16 +4,17 @@ RUN apk update && apk add --no-cache git build-base libjpeg-turbo-dev libwebp-de
 
 WORKDIR /build
 
-# Copiar apenas arquivos de dependências primeiro para cachear o download
+# 1. Copiar os arquivos de definição primeiro
 COPY go.mod go.sum ./
 
-# Copiar whatsmeow-lib que é uma dependência local
-COPY whatsmeow-lib ./whatsmeow-lib
+# 2. GARANTA QUE O NOME ABAIXO SEJA O NOME REAL DA PASTA NO SEU DISCO
+# Se a pasta se chamar apenas 'whatsmeow', mude aqui e no go.mod
+COPY whatsmeow-lib/ ./whatsmeow-lib/
 
-# Agora fazer download das dependências (com replace funcionando)
+# 3. Download das dependências
 RUN go mod download
 
-# Copiar o restante do código
+# 4. CORREÇÃO DA SINTAXE DE CÓPIA (espaço entre os pontos)
 COPY . .
 
 ARG VERSION=dev
